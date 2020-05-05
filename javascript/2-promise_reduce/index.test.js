@@ -1,11 +1,12 @@
 const promiseReduce = require('./index.js');
+
 describe('works with promises', () => {
     const fn1 = () => {
         console.log('fn1')
         return Promise.resolve(2)
     }
     const fn2 = () => new Promise(resolve => {
-        console.log('fn2')
+        console.log('fn2') 
         setTimeout(() => resolve(3), 1000)
     })
     const fn3 = () => {
