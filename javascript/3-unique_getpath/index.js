@@ -44,5 +44,3 @@ const getPath = (elem) => {
 
     } else return "Document don't have this element"
 }
-
-module.exports = {uniqueEl, toDecorId};
