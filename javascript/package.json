@@ -18,5 +18,8 @@
   "homepage": "https://github.com/usulla/sukhareva-mariia-otus#readme",
   "devDependencies": {
     "jest": "^25.4.0"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.0"
   }
 }
