@@ -9,7 +9,6 @@ const Header = styled.div`
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:10px;
 `;
 const HeaderList = ({ idList, title, deleteList, saveTitleList }) => {
   const titleInput = React.createRef();

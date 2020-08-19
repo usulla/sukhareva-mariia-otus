@@ -4,6 +4,7 @@ import ListsContext from '../ListsContext'
 import Weather from '../components/Weather/Weather';
 import styled from 'styled-components'
 import Button from '@material-ui/core/Button';
+import { Loading } from 'components/Loading';
 
 const Title = styled.h1`
   color:#000000;
@@ -14,7 +15,7 @@ const Title = styled.h1`
 `;
 
 const WeatherPage: React.FC<any> = (props) => {
-    const {  weather, isFetching, error, lists, createList, deleteTodo, completedTodo, addTodo, deleteList, renameList } = props
+    const { weather, isFetching, error, lists, createList, deleteTodo, completedTodo, addTodo, deleteList, renameList } = props
     const addList = (): void => {
         const newList: ITodo = {
             id: Date.now(),
@@ -26,8 +27,7 @@ const WeatherPage: React.FC<any> = (props) => {
 
     return (
         <>
-            <Title>weather {weather}</Title>
-            <div>{weather}</div>
+            <Title>weather</Title>
             <div style={{ width: '100%', textAlign: 'center', marginTop: '20px' }}>
                 <Button
                     variant="contained"
@@ -36,26 +36,36 @@ const WeatherPage: React.FC<any> = (props) => {
                     Add city
                 </Button>
             </div>
-            {(lists.length === 0) &&
+            {isFetching &&
+                <Loading />
+            }
+            {error &&
+                <div>{error}</div>
+            }
+            {(!isFetching && !error) &&
+                (weather.length === 0) &&
                 <p className="center">While there is no cities</p>
             }
-            {lists.map(list => {
-                return (
-                    <ListsContext.Provider
-                        key={list.id}
-                        value={{
-                            list: list,
-                            deleteItem: deleteTodo,
-                            completeItem: completedTodo
-                        }}>
-                        <Weather idList={list.id}
-                            title={list.title}
-                            addTodo={addTodo}
-                            deleteList={deleteList}
-                            renameList={renameList} />
-                    </ListsContext.Provider>
-                )
-            })}
+            {(!isFetching && !error) &&
+                (weather.length !== 0) &&
+                weather.map(list => {
+                    return (
+                        <ListsContext.Provider
+                            key={list.id}
+                            value={{
+                                list: list,
+                                deleteItem: deleteTodo,
+                                completeItem: completedTodo
+                            }}>
+                            <Weather idList={list.id}
+                                weather={list}
+                                addTodo={addTodo}
+                                deleteList={deleteList}
+                                renameList={renameList} />
+                        </ListsContext.Provider>
+                    )
+                })
+            }
         </>
     )
 }

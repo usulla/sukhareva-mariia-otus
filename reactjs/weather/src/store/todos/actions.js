@@ -49,11 +49,10 @@ export const getWeather = (url) => {
             fetch(url)
                 .then(response => response.json())
                 .then(json => {
-                    console.log(9999)
                     dispatch({
                         type: GET_WEATHER_SUCCESS,
                         payload: {
-                            weather: json.main.temp
+                            weather: json.list
                         }
                     })
                 })

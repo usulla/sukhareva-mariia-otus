@@ -9,11 +9,12 @@ import { getWeather } from './todos/actions'
 export const store = createStore(rootReducer,
     compose(applyMiddleware(thunk, logger), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 )
-/* Save to LocaStorage */
+/* Save to LocalStorage */
 store.subscribe(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(store.getState().lists.lists))
 })
 
-const cityId = 2172797
-const url = `http://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${APPID}`
+const citiesId = [524901, 703448, 2643743]
+const url = `http://api.openweathermap.org/data/2.5/group?id=${citiesId.join(',')}&units=metric&appid=${APPID}`
+// const url = `http://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${APPID}`
 store.dispatch(getWeather(url)) 
