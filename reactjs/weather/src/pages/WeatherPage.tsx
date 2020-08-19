@@ -15,7 +15,7 @@ const Title = styled.h1`
 `;
 
 const WeatherPage: React.FC<any> = (props) => {
-    const { weather, isFetching, error, lists, createList, deleteTodo, completedTodo, addTodo, deleteList, renameList } = props
+    const { weather, isFetching, error, lists, createList, deleteList} = props
     const addList = (): void => {
         const newList: ITodo = {
             id: Date.now(),
@@ -24,7 +24,6 @@ const WeatherPage: React.FC<any> = (props) => {
         }
         createList(newList)
     }
-
     return (
         <>
             <Title>weather</Title>
@@ -53,15 +52,11 @@ const WeatherPage: React.FC<any> = (props) => {
                         <ListsContext.Provider
                             key={list.id}
                             value={{
-                                list: list,
-                                deleteItem: deleteTodo,
-                                completeItem: completedTodo
+                                list: list
                             }}>
                             <Weather idList={list.id}
                                 weather={list}
-                                addTodo={addTodo}
-                                deleteList={deleteList}
-                                renameList={renameList} />
+                                deleteList={deleteList}/>
                         </ListsContext.Provider>
                     )
                 })

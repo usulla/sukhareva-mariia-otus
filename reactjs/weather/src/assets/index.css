@@ -16,3 +16,8 @@ body {
 #root {
   width: 100%;
 }
+:active,
+:hover,
+:focus {
+  outline: none!important;
+}

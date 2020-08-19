@@ -4,14 +4,14 @@ import logger from 'redux-logger'
 import { rootReducer } from './rootReducer'
 import { STORAGE_KEY } from './types'
 import { APPID } from './types'
-import { getWeather } from './todos/actions'
+import { getWeather } from './weather/actions'
 
 export const store = createStore(rootReducer,
     compose(applyMiddleware(thunk, logger), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 )
 /* Save to LocalStorage */
 store.subscribe(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(store.getState().lists.lists))
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(store.getState().weather))
 })
 
 const citiesId = [524901, 703448, 2643743]
