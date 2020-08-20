@@ -9,12 +9,15 @@ import { getWeather } from './weather/actions'
 export const store = createStore(rootReducer,
     compose(applyMiddleware(thunk, logger), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 )
+// // const url = `http://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${APPID}`
+
+const citiesFromLocalStorage = JSON.parse((localStorage.getItem(STORAGE_KEY)))
+const initialCities = citiesFromLocalStorage && citiesFromLocalStorage.length !== 0 ? citiesFromLocalStorage : [524901, 703448, 2643743]
+const url = `http://api.openweathermap.org/data/2.5/group?id=${initialCities.join()}&units=metric&appid=${APPID}`
+store.dispatch(getWeather(url))
+
 /* Save to LocalStorage */
 store.subscribe(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(store.getState().weather))
+    const selectedCitiesId = store.getState().weather.cities.map(city => city.id)
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(selectedCitiesId))
 })
-
-const citiesId = [524901, 703448, 2643743]
-const url = `http://api.openweathermap.org/data/2.5/group?id=${citiesId.join(',')}&units=metric&appid=${APPID}`
-// const url = `http://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${APPID}`
-store.dispatch(getWeather(url)) 

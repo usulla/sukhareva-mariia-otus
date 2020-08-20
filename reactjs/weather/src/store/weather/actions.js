@@ -15,6 +15,7 @@ export const deleteList = (id) => {
 }
 
 export const getWeather = (url) => {
+    console.log(9)
     return dispatch => {
         dispatch({
             type: GET_WEATHER_REQUEST
@@ -23,6 +24,7 @@ export const getWeather = (url) => {
             fetch(url)
                 .then(response => response.json())
                 .then(json => {
+                    console.log(url)
                     dispatch({
                         type: GET_WEATHER_SUCCESS,
                         payload: {

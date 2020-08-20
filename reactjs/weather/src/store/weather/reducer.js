@@ -1,18 +1,12 @@
 import { APPID, STORAGE_KEY, CREATE_LIST, DELETE_LIST, GET_WEATHER_REQUEST, GET_WEATHER_SUCCESS, GET_WEATHER_FAILURE } from '../types.js'
 import { getWeather } from './actions'
+import {store} from '../configureStore'
 
-const initialCities = {
+const initialState = {
     isFetching: false,
     error: '',
-    cities: ''
+    cities: []
 }
-// const citiesId = [524901, 703448, 2643743]
-// const url = `http://api.openweathermap.org/data/2.5/group?id=${citiesId.join(',')}&units=metric&appid=${APPID}`
-// initialCities.cities = getWeather(url)
-const stateFromLocalStorage = JSON.parse((localStorage.getItem(STORAGE_KEY)))
-const initialState = stateFromLocalStorage ? { cities: stateFromLocalStorage } : initialCities
-
-// const url = `http://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${APPID}`
 
 export const weatherReducer = (state = initialState, action) => {
     switch (action.type) {
