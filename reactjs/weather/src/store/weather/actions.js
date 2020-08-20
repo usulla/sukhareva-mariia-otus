@@ -1,9 +1,11 @@
-import { CREATE_LIST, DELETE_LIST, GET_WEATHER_REQUEST, GET_WEATHER_SUCCESS, GET_WEATHER_FAILURE  } from '../types.js'
+import { APPID, STORAGE_KEY, CREATE_LIST, DELETE_LIST, GET_WEATHER_REQUEST, GET_WEATHER_SUCCESS, GET_WEATHER_FAILURE } from '../types.js'
 // List
-export const createList = (initialList) => {
-    return {
-        type: CREATE_LIST,
-        payload: initialList
+export const createList = (newCityId) => {
+    const citiesFromLocalStorage = JSON.parse((localStorage.getItem(STORAGE_KEY)))
+    const newCitiesId = citiesFromLocalStorage.concat(newCityId)
+    const url = `http://api.openweathermap.org/data/2.5/group?id=${newCitiesId.join()}&units=metric&appid=${APPID}`
+    return dispatch => {
+        dispatch(getWeather(url))
     }
 }
 
@@ -15,7 +17,6 @@ export const deleteList = (id) => {
 }
 
 export const getWeather = (url) => {
-    console.log(9)
     return dispatch => {
         dispatch({
             type: GET_WEATHER_REQUEST
@@ -32,12 +33,12 @@ export const getWeather = (url) => {
                         }
                     })
                 })
-                // .catch(error =>
-                //     dispatch({
-                //         type: GET_WEATHER_FAILURE,
-                //         payload: error
-                //     })
-                // )
+            // .catch(error =>
+            //     dispatch({
+            //         type: GET_WEATHER_FAILURE,
+            //         payload: error
+            //     })
+            // )
         }
         catch (error) {
             dispatch({

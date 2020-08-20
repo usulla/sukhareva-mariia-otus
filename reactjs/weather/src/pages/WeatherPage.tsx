@@ -5,6 +5,7 @@ import Weather from '../components/Weather/Weather';
 import styled from 'styled-components'
 import Button from '@material-ui/core/Button';
 import { Loading } from 'components/Loading';
+import { SearchCityForm } from '../components/Weather/SearchCityForm/SearchCityForm';
 
 const Title = styled.h1`
   color:#000000;
@@ -16,24 +17,17 @@ const Title = styled.h1`
 
 const WeatherPage: React.FC<any> = (props) => {
     const { weather, isFetching, error, lists, createList, deleteList} = props
-    const addList = (): void => {
-        const newList: ITodo = {
-            id: Date.now(),
-            title: '',
-            todos: []
-        }
-        createList(newList)
-    }
     return (
         <>
             <Title>weather</Title>
             <div style={{ width: '100%', textAlign: 'center', marginTop: '20px' }}>
-                <Button
+                {/* <Button
                     variant="contained"
                     color="primary"
                     onClick={addList}>
                     Add city
-                </Button>
+                </Button> */}
+                <SearchCityForm addList={createList}/>
             </div>
             {isFetching &&
                 <Loading />

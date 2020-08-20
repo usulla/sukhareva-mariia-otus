@@ -42,7 +42,7 @@ const Close = styled(CloseIcon)`
   
 `;
 const TodoList: React.FC<TodoListProps> = (props) => {
-  const { weather, idList, deleteList } = props
+  const { weather, idList, deleteList} = props
 
   return (
     <Card style={{ background: 'rgba(255, 255, 255, .7)', margin: '35px 40px', maxWidth: '320px', width: '320px' }}>

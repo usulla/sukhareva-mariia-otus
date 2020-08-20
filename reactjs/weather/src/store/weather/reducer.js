@@ -10,12 +10,12 @@ const initialState = {
 
 export const weatherReducer = (state = initialState, action) => {
     switch (action.type) {
-        case CREATE_LIST:
-            return {
-                ...state,
-                // ...state.concat([action.payload])
-                cities: state.cities.concat([action.payload])
-            }
+        // case CREATE_LIST:
+        //     return {
+        //         ...state,
+        //         // ...state.concat([action.payload])
+        //         cities: state.cities.concat([action.payload])
+        //     }
         case DELETE_LIST:
             return {
                 ...state,
