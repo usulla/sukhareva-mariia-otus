@@ -1,9 +1,7 @@
 import React from 'react';
-import { ITodo } from '../interfaces';
 import ListsContext from '../ListsContext'
 import Weather from '../components/Weather/Weather';
 import styled from 'styled-components'
-import Button from '@material-ui/core/Button';
 import { Loading } from 'components/Loading';
 import { SearchCityForm } from '../components/Weather/SearchCityForm/SearchCityForm';
 
