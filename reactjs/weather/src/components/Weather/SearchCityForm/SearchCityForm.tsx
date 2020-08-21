@@ -21,9 +21,8 @@ const FormWrap = styled.div`
 
 export const SearchCityForm = ({ addList }) => {
     const cityInput = useRef<HTMLInputElement>(null);
-    const cityList = useRef<HTMLDivElement>(null);
 
-    const [list, setList] = useState(0);
+    const [list, setList] = useState([]);
     const [citiesList, setCitiesList] = useState(0);
 
 
@@ -39,7 +38,7 @@ export const SearchCityForm = ({ addList }) => {
     }, [citiesList])
 
     const searchCity = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         function findMatches(wordToMatch, cities) {
             const regex = new RegExp(wordToMatch, 'gi')
@@ -52,20 +51,12 @@ export const SearchCityForm = ({ addList }) => {
 
         function displayMatches() {
             const matchArray = findMatches(cityInput.current!.value, citiesList)
-            console.log(matchArray, '123ff')
-
-            const html = matchArray.map(city => {
+            const cytiesList = matchArray.map(city => {
                 const regex = new RegExp(cityInput.current!.value, 'gi');
                 const cityName = city.name.replace(regex, `<span className="hl2">${cityInput.current!.value}</span>`);
-
-                return `
-                  <li>
-                     <span className="city_name">${cityName}</span>
-                     <span className="city_index"> ${city.id}</span>
-                  </li>
-                  `;
-            }).join(''); //convert array to string
-            setList(html)
+                return city.id
+            })
+            setList(cytiesList)
         }
         displayMatches()
 
@@ -78,6 +69,9 @@ export const SearchCityForm = ({ addList }) => {
         //     /* Clear input for new city*/
         //     cityInput.current!.value = "";
         // }
+    }
+    const selectCity = (city) => {
+        console.log(city)
     }
     return (
         <FormWrap>
@@ -99,10 +93,19 @@ export const SearchCityForm = ({ addList }) => {
                         </>
                     </InputGroup>
                 </FormGroup>
-                <div className={styles.suggestions} ref={cityList}>
-                   {list !==0 && 
-                    <ul dangerouslySetInnerHTML={{ __html: `${list}` }} />
-                   }
+                <div className={styles.suggestions}>
+                    {list.length !== 0 &&
+                        <ul>
+                            {list.map(city => {
+                                return (
+                                    <li onClick={(): void => selectCity(city)}>
+                                        <span className="city_name" dangerouslySetInnerHTML={{ __html: `${city}` }} />
+                                    </li>
+                                )
+                            })
+                            }
+                        </ul>
+                    }
                 </div>
             </Form>
         </FormWrap>
