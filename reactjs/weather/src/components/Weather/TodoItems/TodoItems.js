@@ -13,7 +13,7 @@ export const TodoItems = () => {
           context.list.todos.map(item => {
             return (
               <TodoItem item={item} key={item.id} />
-            )
+            )   
           })
         )}
       </ListsContext.Consumer>

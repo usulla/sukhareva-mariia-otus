@@ -15,9 +15,8 @@ const FormWrap = styled.div`
     input {
         background: rgba(255, 255, 255, 0.7);
         border: none;
-  }
+    }
 `;
-
 
 export const SearchCityForm = ({ addList }) => {
     const cityInput = useRef<HTMLInputElement>(null);
@@ -46,22 +45,17 @@ export const SearchCityForm = ({ addList }) => {
                 return place.name.match(regex)
             })
         }
-        // const searchInput = document.querySelector('.search');
-        // const suggestions = document.querySelector('.suggestions');
 
         function displayMatches() {
             const matchArray = findMatches(cityInput.current!.value, citiesList)
             const cytiesList = matchArray.map(city => {
                 const regex = new RegExp(cityInput.current!.value, 'gi');
                 const cityName = city.name.replace(regex, `<span className="hl2">${cityInput.current!.value}</span>`);
-                return city.id
+                return city.name
             })
             setList(cytiesList)
         }
         displayMatches()
-
-
-
         // if (cityInput.current!.value !== "") {
         //     /* Create new entry */
         //     const newCity: string = cityInput.current!.value
@@ -70,8 +64,8 @@ export const SearchCityForm = ({ addList }) => {
         //     cityInput.current!.value = "";
         // }
     }
-    const selectCity = (city) => {
-        console.log(city)
+    const selectCity = (cityId) => {
+        console.log(cityId)
     }
     return (
         <FormWrap>
