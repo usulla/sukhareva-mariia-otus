@@ -4,10 +4,9 @@ import { createList, deleteList } from '../store/weather/actions'
 import WeatherPage from '../pages/WeatherPage.tsx'
 
 const WeatherContainer = (props) => {
-    const { weather, isFetching, error, lists, createList, deleteList } = props
+    const { weather, isFetching, error, createList, deleteList } = props
     return (
         <WeatherPage
-            lists={lists}
             createList={createList}
             deleteList={deleteList}
             weather={weather} 

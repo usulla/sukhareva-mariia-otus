@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
@@ -58,7 +58,7 @@ const TodoList: React.FC<TodoListProps> = (props) => {
           <Temp>
             {Math.round(weather.main.temp)}°C
           </Temp>
-          <img src={`//openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/${weather.weather[0].icon}.png`} />
+          <img src={`//openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/${weather.weather[0].icon}.png`} alt="weather"/>
         </Row>
         <div className="details">
           <hr />

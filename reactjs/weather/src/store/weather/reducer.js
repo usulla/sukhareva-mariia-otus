@@ -1,6 +1,4 @@
-import { APPID, STORAGE_KEY, CREATE_LIST, DELETE_LIST, GET_WEATHER_REQUEST, GET_WEATHER_SUCCESS, GET_WEATHER_FAILURE } from '../types.js'
-import { getWeather } from './actions'
-import {store} from '../configureStore'
+import {DELETE_LIST, GET_WEATHER_REQUEST, GET_WEATHER_SUCCESS, GET_WEATHER_FAILURE } from '../types.js'
 
 const initialState = {
     isFetching: false,

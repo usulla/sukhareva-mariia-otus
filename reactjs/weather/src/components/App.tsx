@@ -4,15 +4,6 @@ import styled from 'styled-components'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import WeatherContainer from '../containers/WeatherContainer';
 
-/* TODO: 
-- 1. добавить сворачивание списка
-+ 2. добавить удаление списка
-+ 3. добавить переименование списка
-- 4. сделать теги
-+ 5. добавить фон
-- 6. фон из flickr или живые обои
-- 7. добавить иконку
-*/
 const Wrapper = styled.section`
   display: flex;
   justify-content: center;

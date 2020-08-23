@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react"
+import React from "react"
 import RootRef from '@material-ui/core/RootRef'
 import Form from 'react-bootstrap/Form'
 import FormGroup from 'react-bootstrap/FormGroup'
@@ -7,6 +7,7 @@ import FormControl from 'react-bootstrap/FormControl'
 import Button from '@material-ui/core/Button'
 import styled from 'styled-components'
 import styles from './styles.module.scss';
+import { CityState } from '../../../interfaces';
 
 const FormWrap = styled.div`
   width:320px;
@@ -17,91 +18,111 @@ const FormWrap = styled.div`
         border: none;
     }
 `;
+interface AppProps {
+    addList: any
+}
 
-export const SearchCityForm = ({ addList }) => {
-    const cityInput = useRef<HTMLInputElement>(null);
-
-    const [list, setList] = useState([]);
-    const [citiesList, setCitiesList] = useState(0);
-
-
-    useEffect(() => {
-        async function fetchCities() {
-            const endpoint = '/json/city.json';
-            // const endpoint = '/json/city.list.min.json';
-            const response = await fetch(endpoint)
-            const json = await response.json()
-            setCitiesList(json)
+export class SearchCityForm extends React.Component<AppProps, CityState> {
+    private cityInput: React.RefObject<HTMLInputElement>
+    constructor(props) {
+        super(props);
+        this.state = {
+            citiesMatch: [],
+            citiesList: ''
         }
-        fetchCities();
-    }, [citiesList])
+        this.cityInput = React.createRef()
+        this.searchCity = this.searchCity.bind(this)
+        this.selectCity = this.selectCity.bind(this)
+    }
+    controller = new AbortController();
+    async componentDidMount() {
+        const fetchData = async () => {
+            try {
+                // const url = '/json/city.json';
+                const url = '/json/city.list.min.json';
+                const response = await fetch(url)
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                const json = await response.json();
+                await this.setState({ citiesList: json })
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        fetchData()
+    }
 
-    const searchCity = (e) => {
+    componentWillUnmount() {
+        this.controller.abort();
+    }
+
+    searchCity = (e) => {
         e.preventDefault()
-
-        function findMatches(wordToMatch, cities) {
+        const findMatches = (wordToMatch, cities) => {
             const regex = new RegExp(wordToMatch, 'gi')
             return cities.filter(place => {
                 return place.name.match(regex)
             })
         }
 
-        function displayMatches() {
-            const matchArray = findMatches(cityInput.current!.value, citiesList)
+        const displayMatches = () => {
+            const matchArray = findMatches(this.cityInput.current!.value, this.state.citiesList)
             const cytiesList = matchArray.map(city => {
-                const regex = new RegExp(cityInput.current!.value, 'gi');
-                const cityName = city.name.replace(regex, `<span className="hl2">${cityInput.current!.value}</span>`);
-                return city.name
+                const regex = new RegExp(this.cityInput.current!.value, 'gi');
+                const cityName = city.name.replace(regex, `<span className="hl2">${this.cityInput.current!.value}</span>`);
+                return { name: cityName, index: city.id }
             })
-            setList(cytiesList)
+            this.setState({ citiesMatch: cytiesList })
         }
         displayMatches()
-        // if (cityInput.current!.value !== "") {
-        //     /* Create new entry */
-        //     const newCity: string = cityInput.current!.value
-        //     addList(newCity)
-        //     /* Clear input for new city*/
-        //     cityInput.current!.value = "";
-        // }
     }
-    const selectCity = (cityId) => {
-        console.log(cityId)
+    selectCity = (index) => {
+        this.props.addList(index)
+        this.cityInput.current!.value = "";
+        this.setState({ citiesMatch: [] })
     }
-    return (
-        <FormWrap>
-            <Form onSubmit={(e: any): void => searchCity(e)}>
-                <FormGroup controlId="formAddItem">
-                    <InputGroup className="mb-3" >
-                        <>
-                            <RootRef rootRef={cityInput}>
-                                <FormControl
-                                    placeholder="London"
-                                    autoComplete="off"
-                                    onChange={(e: any): void => searchCity(e)} />
-                            </RootRef>
-                            <InputGroup.Append>
-                                <Button type="submit" variant="contained" color="primary">
-                                    Search
+
+    render() {
+        const { addList } = this.props
+        const { citiesMatch } = this.state
+        return (
+            <FormWrap>
+                <Form onSubmit={(e: any): void => this.searchCity(e)}>
+                    <FormGroup controlId="formAddItem">
+                        <InputGroup className="mb-3" >
+                            <>
+                                <RootRef rootRef={this.cityInput}>
+                                    <FormControl
+                                        placeholder="London"
+                                        autoComplete="off"
+                                    // onChange={(e: any): void => this.searchCity(e)}
+                                    />
+                                </RootRef>
+                                <InputGroup.Append>
+                                    <Button type="submit" variant="contained" color="primary">
+                                        Search
                             </Button>
-                            </InputGroup.Append>
-                        </>
-                    </InputGroup>
-                </FormGroup>
-                <div className={styles.suggestions}>
-                    {list.length !== 0 &&
-                        <ul>
-                            {list.map(city => {
-                                return (
-                                    <li onClick={(): void => selectCity(city)}>
-                                        <span className="city_name" dangerouslySetInnerHTML={{ __html: `${city}` }} />
-                                    </li>
-                                )
-                            })
-                            }
-                        </ul>
-                    }
-                </div>
-            </Form>
-        </FormWrap>
-    )
+                                </InputGroup.Append>
+                            </>
+                        </InputGroup>
+                    </FormGroup>
+                    <div className={styles.suggestions}>
+                        {citiesMatch.length > 0 &&
+                            <ul>
+                                {citiesMatch.map(city => {
+                                    return (
+                                        <li key={city.index} onClick={(): void => this.selectCity(city.index)}>
+                                            <span className="city_name" dangerouslySetInnerHTML={{ __html: `${city.name}` }} />
+                                        </li>
+                                    )
+                                })
+                                }
+                            </ul>
+                        }
+                    </div>
+                </Form>
+            </FormWrap>
+        )
+    }
 }

@@ -1,10 +1,8 @@
-export interface ITodo {
-    id: number | string,
-    title: string,
-    todos: Array<T>
+export interface CityState {
+    citiesMatch: Array<T>
+    citiesList: any
 }
 export interface T {
-    id: number | string,
-    text: string,
-    completed: boolean
+    name: string,
+    index: string | number
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import { ITodo } from './interfaces';
 
 const initialTodos: any = [{
   id: Date.now(),

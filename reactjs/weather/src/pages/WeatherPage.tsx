@@ -14,18 +14,12 @@ const Title = styled.h1`
 `;
 
 const WeatherPage: React.FC<any> = (props) => {
-    const { weather, isFetching, error, lists, createList, deleteList} = props
+    const { weather, isFetching, error, createList, deleteList } = props
     return (
         <>
             <Title>weather</Title>
             <div style={{ width: '100%', textAlign: 'center', marginTop: '20px' }}>
-                {/* <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={addList}>
-                    Add city
-                </Button> */}
-                <SearchCityForm addList={createList}/>
+                <SearchCityForm addList={createList} />
             </div>
             {isFetching &&
                 <Loading />
@@ -48,7 +42,7 @@ const WeatherPage: React.FC<any> = (props) => {
                             }}>
                             <Weather idList={list.id}
                                 weather={list}
-                                deleteList={deleteList}/>
+                                deleteList={deleteList} />
                         </ListsContext.Provider>
                     )
                 })

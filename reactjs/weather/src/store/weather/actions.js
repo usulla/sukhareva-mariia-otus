@@ -1,4 +1,4 @@
-import { APPID, STORAGE_KEY, CREATE_LIST, DELETE_LIST, GET_WEATHER_REQUEST, GET_WEATHER_SUCCESS, GET_WEATHER_FAILURE } from '../types.js'
+import { APPID, STORAGE_KEY, DELETE_LIST, GET_WEATHER_REQUEST, GET_WEATHER_SUCCESS, GET_WEATHER_FAILURE } from '../types.js'
 // List
 export const createList = (newCityId) => {
     const citiesFromLocalStorage = JSON.parse((localStorage.getItem(STORAGE_KEY)))
@@ -8,7 +8,6 @@ export const createList = (newCityId) => {
         dispatch(getWeather(url))
     }
 }
-
 export const deleteList = (id) => {
     return {
         type: DELETE_LIST,
