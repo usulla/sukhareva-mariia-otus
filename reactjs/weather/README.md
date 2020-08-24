@@ -10,6 +10,7 @@
 - TypeScript
 - ES6 + Support - [Babel](https://babeljs.io) 🚀
 - Styled Component, CSS Modules
+- MaterialUI
 - Eslint
 
 ## Getting Started
