@@ -1,19 +1,14 @@
-import {DELETE_LIST, GET_WEATHER_REQUEST, GET_WEATHER_SUCCESS, GET_WEATHER_FAILURE } from '../types.js'
+import { DELETE_LIST, GET_WEATHER_REQUEST, GET_WEATHER_SUCCESS, GET_WEATHER_FAILURE, MATCH_CITIES } from '../types.js'
 
 const initialState = {
     isFetching: false,
     error: '',
-    cities: []
+    cities: [],
+    citiesSearchMatch: []
 }
 
 export const weatherReducer = (state = initialState, action) => {
     switch (action.type) {
-        // case CREATE_LIST:
-        //     return {
-        //         ...state,
-        //         // ...state.concat([action.payload])
-        //         cities: state.cities.concat([action.payload])
-        //     }
         case DELETE_LIST:
             return {
                 ...state,
@@ -25,7 +20,8 @@ export const weatherReducer = (state = initialState, action) => {
             return { ...state, isFetching: false, cities: action.payload.cities }
         case GET_WEATHER_FAILURE:
             return { ...state, isFetching: false, error: action.payload }
-
+        case MATCH_CITIES:
+            return { ...state, citiesSearchMatch: action.payload }
         default: return state
     }
 }

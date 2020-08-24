@@ -37,12 +37,9 @@ const Detail = styled.ul`
         }
  }
 `;
-const Close = styled(CloseIcon)`
-  
-`;
-const TodoList: React.FC<TodoListProps> = (props) => {
-  const { weather, idList, deleteList} = props
 
+const WeatherCard: React.FC<TodoListProps> = (props) => {
+  const { weather, idList, deleteList } = props
   return (
     <Card style={{ background: 'rgba(255, 255, 255, .7)', margin: '35px 40px', maxWidth: '320px', width: '320px' }}>
       <CardContent>
@@ -51,14 +48,14 @@ const TodoList: React.FC<TodoListProps> = (props) => {
             {weather.name}
           </Typography>
           <IconButton aria-label="delete" onClick={() => deleteList(idList)}>
-            <Close />
+            <CloseIcon />
           </IconButton>
         </Row>
         <Row>
           <Temp>
             {Math.round(weather.main.temp)}°C
           </Temp>
-          <img src={`//openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/${weather.weather[0].icon}.png`} alt="weather"/>
+          <img src={`//openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/${weather.weather[0].icon}.png`} alt="weather" />
         </Row>
         <div className="details">
           <hr />
@@ -87,4 +84,4 @@ const TodoList: React.FC<TodoListProps> = (props) => {
   );
 }
 
-export default TodoList;
+export default WeatherCard;

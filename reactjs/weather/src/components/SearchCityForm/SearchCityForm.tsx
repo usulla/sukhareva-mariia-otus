@@ -5,9 +5,10 @@ import FormGroup from 'react-bootstrap/FormGroup'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from '@material-ui/core/Button'
+import withFetch from '../withFetch'
+import styles from './styles.module.scss'
 import styled from 'styled-components'
-import styles from './styles.module.scss';
-import { CityState } from '../../../interfaces';
+import { IStateSearch, IPropsSearch } from '../../interfaces';
 
 const FormWrap = styled.div`
   width:320px;
@@ -18,43 +19,14 @@ const FormWrap = styled.div`
         border: none;
     }
 `;
-interface AppProps {
-    addList: any
-}
 
-export class SearchCityForm extends React.Component<AppProps, CityState> {
+class SearchCityForm extends React.Component<IPropsSearch, IStateSearch> {
     private cityInput: React.RefObject<HTMLInputElement>
-    constructor(props) {
+    constructor(props: IPropsSearch) {
         super(props);
-        this.state = {
-            citiesMatch: [],
-            citiesList: ''
-        }
         this.cityInput = React.createRef()
         this.searchCity = this.searchCity.bind(this)
         this.selectCity = this.selectCity.bind(this)
-    }
-    controller = new AbortController();
-    async componentDidMount() {
-        const fetchData = async () => {
-            try {
-                // const url = '/json/city.json';
-                const url = '/json/city.list.min.json';
-                const response = await fetch(url)
-                if (!response.ok) {
-                    throw Error(response.statusText);
-                }
-                const json = await response.json();
-                await this.setState({ citiesList: json })
-            } catch (error) {
-                console.error(error);
-            }
-        }
-        fetchData()
-    }
-
-    componentWillUnmount() {
-        this.controller.abort();
     }
 
     searchCity = (e) => {
@@ -67,25 +39,24 @@ export class SearchCityForm extends React.Component<AppProps, CityState> {
         }
 
         const displayMatches = () => {
-            const matchArray = findMatches(this.cityInput.current!.value, this.state.citiesList)
+            const matchArray = findMatches(this.cityInput.current!.value, this.props.results)
             const cytiesList = matchArray.map(city => {
                 const regex = new RegExp(this.cityInput.current!.value, 'gi');
                 const cityName = city.name.replace(regex, `<span className="hl2">${this.cityInput.current!.value}</span>`);
                 return { name: cityName, index: city.id }
             })
-            this.setState({ citiesMatch: cytiesList })
+            this.props.searchCitiesMatch(cytiesList)
         }
         displayMatches()
     }
     selectCity = (index) => {
         this.props.addList(index)
         this.cityInput.current!.value = "";
-        this.setState({ citiesMatch: [] })
+        this.props.searchCitiesMatch([])
     }
 
     render() {
-        const { addList } = this.props
-        const { citiesMatch } = this.state
+        const { citiesSearchMatch } = this.props
         return (
             <FormWrap>
                 <Form onSubmit={(e: any): void => this.searchCity(e)}>
@@ -108,9 +79,9 @@ export class SearchCityForm extends React.Component<AppProps, CityState> {
                         </InputGroup>
                     </FormGroup>
                     <div className={styles.suggestions}>
-                        {citiesMatch.length > 0 &&
+                        {citiesSearchMatch.length > 0 &&
                             <ul>
-                                {citiesMatch.map(city => {
+                                {citiesSearchMatch.map(city => {
                                     return (
                                         <li key={city.index} onClick={(): void => this.selectCity(city.index)}>
                                             <span className="city_name" dangerouslySetInnerHTML={{ __html: `${city.name}` }} />
@@ -126,3 +97,6 @@ export class SearchCityForm extends React.Component<AppProps, CityState> {
         )
     }
 }
+
+const url = "/json/city.list.min.json"
+export default withFetch({ url: url })(SearchCityForm)

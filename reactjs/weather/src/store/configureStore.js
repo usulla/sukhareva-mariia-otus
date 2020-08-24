@@ -9,7 +9,6 @@ import { getWeather } from './weather/actions'
 export const store = createStore(rootReducer,
     compose(applyMiddleware(thunk, logger), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 )
-// // const url = `http://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${APPID}`
 
 const citiesFromLocalStorage = JSON.parse((localStorage.getItem(STORAGE_KEY)))
 const initialCities = citiesFromLocalStorage && citiesFromLocalStorage.length !== 0 ? citiesFromLocalStorage : [524901, 703448, 2643743]

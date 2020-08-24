@@ -18,7 +18,7 @@
     "@types/styled-components": "^5.1.0",
     "bootstrap": "^4.4.1",
     "gh-pages": "^2.2.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-bootstrap": "^1.0.0-beta.17",
@@ -54,5 +54,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "css-loader": "^4.2.1"
   }
 }

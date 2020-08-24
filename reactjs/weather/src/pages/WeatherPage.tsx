@@ -1,9 +1,9 @@
 import React from 'react';
 import ListsContext from '../ListsContext'
-import Weather from '../components/Weather/Weather';
+import WeatherCard from '../components/ WeatherCard/WeatherCard';
 import styled from 'styled-components'
 import { Loading } from 'components/Loading';
-import { SearchCityForm } from '../components/Weather/SearchCityForm/SearchCityForm';
+import SearchCityForm from '../components/SearchCityForm/SearchCityForm';
 
 const Title = styled.h1`
   color:#000000;
@@ -14,18 +14,15 @@ const Title = styled.h1`
 `;
 
 const WeatherPage: React.FC<any> = (props) => {
-    const { weather, isFetching, error, createList, deleteList } = props
+    const { weather, isFetching, error, citiesSearchMatch, createList, deleteList, searchCitiesMatch } = props
     return (
         <>
             <Title>weather</Title>
             <div style={{ width: '100%', textAlign: 'center', marginTop: '20px' }}>
-                <SearchCityForm addList={createList} />
+                <SearchCityForm addList={createList} citiesSearchMatch={citiesSearchMatch} searchCitiesMatch={searchCitiesMatch} />
             </div>
-            {isFetching &&
-                <Loading />
-            }
-            {error &&
-                <div>{error}</div>
+            {(isFetching || error) &&
+                isFetching ? <Loading /> : <div>{error}</div>
             }
             {(!isFetching && !error) &&
                 (weather.length === 0) &&
@@ -40,7 +37,7 @@ const WeatherPage: React.FC<any> = (props) => {
                             value={{
                                 list: list
                             }}>
-                            <Weather idList={list.id}
+                            <WeatherCard idList={list.id}
                                 weather={list}
                                 deleteList={deleteList} />
                         </ListsContext.Provider>
