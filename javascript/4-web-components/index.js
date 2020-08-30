@@ -12,7 +12,7 @@ class MyCustomElement extends HTMLElement {
             return JSON.parse(this.getAttribute('items'));
         } catch (e) {
             return { "id": e }
-        }
+        } 
     }
 
     set items(value) {
