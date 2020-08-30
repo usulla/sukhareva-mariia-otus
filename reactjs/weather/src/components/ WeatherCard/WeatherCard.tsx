@@ -1,15 +1,17 @@
-import React from "react";
+import React, { FC } from "react";
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton'
+import { Link } from 'react-router-dom'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
-type TodoListProps = {
+type CardListProps = {
   weather: any
-  idList: string | number
-  deleteList: (idList: number | string) => void
+  idList?: string | number | any
+  deleteList?: (idList: number | string) => void
+  getDailyForecast?: (cityId: number | string) => void
 }
 const Row = styled.div`
   display:flex;
@@ -18,6 +20,9 @@ const Row = styled.div`
   align-items: center;
     img {
         width: 30%;
+    }
+    a {
+      color:#000;
     }
 `;
 const Temp = styled.div`
@@ -38,22 +43,30 @@ const Detail = styled.ul`
  }
 `;
 
-const WeatherCard: React.FC<TodoListProps> = (props) => {
-  const { weather, idList, deleteList } = props
+const WeatherCard: FC<CardListProps> = (props) => {
+  const { weather, idList, deleteList, getDailyForecast } = props
   return (
     <Card style={{ background: 'rgba(255, 255, 255, .7)', margin: '35px 40px', maxWidth: '320px', width: '320px' }}>
       <CardContent>
         <Row>
-          <Typography variant="h6" component="h2">
-            {weather.name}
-          </Typography>
-          <IconButton aria-label="delete" onClick={() => deleteList(idList)}>
-            <CloseIcon />
-          </IconButton>
+          {weather.name &&
+            <Link to={`${weather.id}`} onClick={() => getDailyForecast && getDailyForecast(weather.id)}>
+              <Typography variant="h6" component="h2"> {weather.name}</Typography>
+            </Link>
+          }
+          {weather.dt_txt &&
+              <Typography variant="h6" component="h2">  {weather.dt_txt.slice(0, -3)}</Typography>
+          }
+          {deleteList &&
+            <IconButton aria-label="delete" onClick={() => deleteList && deleteList(idList)}>
+              <CloseIcon />
+            </IconButton>
+          }
         </Row>
         <Row>
+          {/* If Kelvin when x-273.15 */}
           <Temp>
-            {Math.round(weather.main.temp)}°C
+            {Math.round(weather.main.temp < 200 ? weather.main.temp : weather.main.temp - 273.15)}°C
           </Temp>
           <img src={`//openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/${weather.weather[0].icon}.png`} alt="weather" />
         </Row>

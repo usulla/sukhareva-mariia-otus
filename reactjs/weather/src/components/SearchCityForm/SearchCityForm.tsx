@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Component } from "react"
 import RootRef from '@material-ui/core/RootRef'
 import Form from 'react-bootstrap/Form'
 import FormGroup from 'react-bootstrap/FormGroup'
@@ -20,7 +20,7 @@ const FormWrap = styled.div`
     }
 `;
 
-class SearchCityForm extends React.Component<IPropsSearch, IStateSearch> {
+class SearchCityForm extends Component<IPropsSearch, IStateSearch> {
     private cityInput: React.RefObject<HTMLInputElement>
     constructor(props: IPropsSearch) {
         super(props);

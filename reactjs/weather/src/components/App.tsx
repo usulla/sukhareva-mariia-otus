@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import styled from 'styled-components'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import WeatherContainer from '../containers/WeatherContainer';
+import DailyForecastContainer from '../containers/DailyForecastContainer';
 
 const Wrapper = styled.section`
   display: flex;
@@ -18,6 +19,7 @@ export const App = () => {
         <Wrapper>
           <Switch>
             <Route component={WeatherContainer} path='/' exact />
+            <Route children={<DailyForecastContainer/>} path="/:id" />
           </Switch>
         </Wrapper>
       </BrowserRouter>
