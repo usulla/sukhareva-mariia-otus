@@ -19,5 +19,5 @@
 ```
 npm install -g polymer-cli
 npm install
-npm start
+npm start  
 ```

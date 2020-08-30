@@ -7,7 +7,7 @@ class MyCustomElement extends HTMLElement {
         this.attachShadow({ mode: 'open' });
     }
 
-    get items() {
+    get items() {  
         try {
             return JSON.parse(this.getAttribute('items'));
         } catch (e) {
