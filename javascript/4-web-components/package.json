@@ -1,0 +1,16 @@
+{
+    "name": "web-components",
+    "version": "1.0.0",
+    "description": "Custom Elements Tree* Lit-Element",
+    "repository": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "polymer serve",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "dependencies": {
+        "@webcomponents/webcomponentsjs": "latest",
+        "lit-element": "latest"
+    }
+}
