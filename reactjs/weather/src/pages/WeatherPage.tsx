@@ -34,7 +34,8 @@ const WeatherPage: FC<any> = (props) => {
                             <WeatherCard idList={list.id}
                                 weather={list}
                                 deleteList={deleteList}
-                                getDailyForecast={getDailyForecast} />
+                                getDailyForecast={getDailyForecast}
+                                key={list.id} />
                     )
                 })
             }

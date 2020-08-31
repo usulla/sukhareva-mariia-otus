@@ -28,7 +28,7 @@ const DailyForecastPage: FC<any> = (props) => {
                 dailyForecast.map(list => {
                     return (
                         <WeatherCard idList={list.id}
-                            weather={list}
+                            weather={list} key={list.id}
                         />
                     )
                 })
