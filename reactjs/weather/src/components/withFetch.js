@@ -8,9 +8,10 @@ const withFetch = props => {
                 results: []
             };
         }
+        controller = new AbortController()
         async fetchData() {
             try {
-                const data = await fetch(props.url)
+                const data = await fetch(props.url, { signal: this.controller.signal })
                 if (!data.ok) {
                     throw Error(data.statusText)
                 }
@@ -21,11 +22,16 @@ const withFetch = props => {
                     });
                 }
             } catch (error) {
-                console.error(error);
+                if (error.name === 'AbortError') return
+                throw error
             }
         }
         async componentDidMount() {
             this.fetchData();
+        }
+        //cancel subscription by abort
+        componentWillUnmount() {
+            this.controller.abort();
         }
         render() {
             const { results } = this.state;
