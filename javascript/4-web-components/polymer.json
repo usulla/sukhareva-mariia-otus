@@ -17,7 +17,7 @@
                 "minify": false,
                 "compile": "es5",
                 "transformModulesToAmd": true
-            }
+            } 
         }
     ]
 }  
