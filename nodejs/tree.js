@@ -12,7 +12,7 @@ function tree(stringDir) {
             let files = []
             let dirs = []
 
-            // empty directory
+            // empty directory 
             if (pathsContent.length === 0) {
                 resolve({
                     files: files,
