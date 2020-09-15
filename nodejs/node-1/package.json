@@ -1,0 +1,14 @@
+{
+    "name": "node-1",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "npm run test-sync && npm run test-async",
+        "test-sync": "node request 5",
+        "test-async": "node request 5 async"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}
