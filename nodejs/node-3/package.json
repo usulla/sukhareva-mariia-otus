@@ -5,11 +5,6 @@
     "main": "sort.js",
     "private": true,
     "scripts": {
-        "generate": "node generate.js",
-        "sort": "node --max-old-space-size=50 sort.js",
-        "test": "jest"
-    },
-    "devDependencies": {
-        "jest": "^25.5.4"
-    }
+        "start": "node --max-old-space-size=50 sort.js"
+    } 
 }

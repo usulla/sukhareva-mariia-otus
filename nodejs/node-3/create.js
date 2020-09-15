@@ -1,6 +1,6 @@
 const fs = require('fs');
 const tools = require('./tools');
- 
+  
 // final size of the file to create
 const fileSizeLimitMB = 100;
 // lower limit for the generated number

@@ -74,7 +74,7 @@ async function splitFiles() {
         });
     });
 } 
-
+ 
 function createChunkFile(lines, chunkNumber) {
     let chunkFileName = `chunk${chunkNumber}.txt`;
     lines.sort((a, b) => a - b);
