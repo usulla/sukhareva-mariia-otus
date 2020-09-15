@@ -1,6 +1,6 @@
 const fs = require('fs');
 const readline = require('readline');
-const createFile = require('./createFile');
+const createFile = require('./create');
 const tools = require('./tools');
 
 const inputFileName = 'input.txt';
@@ -73,7 +73,7 @@ async function splitFiles() {
             res(chunkFileNames);
         });
     });
-}
+} 
 
 function createChunkFile(lines, chunkNumber) {
     let chunkFileName = `chunk${chunkNumber}.txt`;
