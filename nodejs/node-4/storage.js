@@ -11,7 +11,7 @@ const generate = () => {
         id: k,
         name: `${faker.commerce.productMaterial()} ${faker.random.word()}`,
     })));
-
+ 
     sellers.push(...Array.from({length: 20}, (v, k) => ({
         id: k,
         name: faker.company.companyName(),

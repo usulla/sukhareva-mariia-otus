@@ -142,7 +142,7 @@ const changeOrderStatus = (orderId, status) => {
 }
 
 const resolvers = { 
-    Query: {
+    Query: { 
         categories: () => categories,
         product: (_, {id}) => getProductById(id),
         seller: (_, {id}) => getSellerById(id),
