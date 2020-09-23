@@ -1,0 +1,10 @@
+{
+    "author": "msukhareva",
+    "name": "node-3",
+    "description": "Homework #3 for \"Node.js\" module in \"Fullstack JavaScript developer\" course on Otus.ru.",
+    "main": "sort.js",
+    "private": true,
+    "scripts": {
+        "start": "node --max-old-space-size=50 sort.js"
+    } 
+}
